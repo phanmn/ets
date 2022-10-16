@@ -218,9 +218,9 @@ defmodule ETS.KeyValueSet do
 
   """
   @spec delete(KeyValueSet.t(), any()) :: {:ok, KeyValueSet.t()} | {:error, any()}
-  def delete(%KeyValueSet{set: set}, key) do
-    with {:ok, %Set{table: table}} <- Set.delete(set, key),
-         do: KeyValueSet.wrap_existing(table)
+  def delete(%KeyValueSet{set: set} = key_value_set, key) do
+    with {:ok, %Set{}} <- Set.delete(set, key),
+         do: {:ok, key_value_set}
   end
 
   @doc """
